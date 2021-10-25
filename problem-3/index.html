@@ -1,0 +1,71 @@
+<html>
+
+<body>
+  <h2>Fridge Items</h2>
+  <table>
+    <thead>
+      <td>
+        <b>Item</b>
+      </td>
+      <td>
+        <b>Count</b>
+      </td>
+      <td>
+        <b>Remove</b>
+      </td>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cucumber</td>
+        <td>3</td>
+        <td><button onClick="remove(event)">X</button></td>
+      </tr>
+      <tr>
+        <td>Lettuce</td>
+        <td>5</td>
+        <td><button onClick="remove(event)">X</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <input type="text" id="itemInput">
+  <button id="add">Add</button>
+</body>
+<script>
+  let input = document.getElementById("itemInput");
+  let addButton = document.getElementById("add");
+  addButton.addEventListener("click", add)
+
+  // Removing the item by hiding the item row and manipulating the CSS of the page.
+  function remove(event) {
+   event.originalTarget.parentNode.parentNode.style.display="none";
+  }
+
+  function add() {
+    item = input.value.split(' ');
+    
+    // Error handling for entered text
+    // checking if we have just item name and quantity and they typed correctly by using regular expressions 
+     if (item.length != 2 || item[0].match(/^[A-Za-z]+$/) == null|| item[1].match(/^[0-9]+$/) == null  ) {
+      alert("You entered wrong, please enter in this format \n \nnameOfItem quantity \n  \nPlease make sure you have only one space between the nameOfItem and the quantity");
+     }
+     else{
+         let tablebody = document.getElementsByTagName("tbody")[0];
+         tablebody.innerHTML +=`  <tr>
+        <td>${item[0]}</td>
+        <td>${item[1]}</td>
+        <td><button onClick="remove(event)">X</button></td>
+      </tr>`; 
+      input.value='';
+     }
+
+
+  }
+</script>
+<style>
+  td {
+    padding-right: 50px;
+  }
+</style>
+
+</html>
